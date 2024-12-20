@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16
+    container_name: db
+    env_file:
+      - db.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: on-failure
+    ports:
+      - "5431:5431"
+  bot:
+    build: .
+    container_name: bot
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - db
+volumes:
+  pgdata:
