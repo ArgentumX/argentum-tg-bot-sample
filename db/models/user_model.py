@@ -11,7 +11,6 @@ from utils import referers
 class UserModel(TimedBaseModel):
     __tablename__ = "users"
     id = Column(BigInteger, primary_key=True)
-    username = Column(String(50))
     tag = Column(String(64))
     balance = Column(FLOAT, default=0)
     query: sql.select

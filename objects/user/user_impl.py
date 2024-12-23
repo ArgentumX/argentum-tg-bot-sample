@@ -23,9 +23,6 @@ class UserImpl(User):
     def get_tag(self) -> str:
         return self.__user_model.tag
 
-    def get_username(self) -> str:
-        return self.__user_model.username
-
     def get_balance(self) -> float:
         return self.__user_model.balance
 

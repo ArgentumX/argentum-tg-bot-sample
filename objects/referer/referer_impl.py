@@ -1,5 +1,6 @@
-from venv import logger
+from loguru import logger
 
+from config import config
 from db.enums.association_type import AssociationType
 from db.enums.referer_rang import RefererRang
 from db.models.referer_model import RefererModel
@@ -9,7 +10,6 @@ from events import event_manager
 from events.referer.referer_add_referal_event import RefererAddReferalEvent
 from events.referer.referer_set_user_event import RefererSetUserEvent
 from .referer import Referer
-
 
 class RefererImpl(Referer):
     __referer_model: RefererModel
@@ -54,3 +54,6 @@ class RefererImpl(Referer):
     async def get_user_id(self) -> int:
         association = await UserRefererModel.get_referer_user(self.get_id())
         return association.user_id
+
+    def get_referal_link(self):
+        return config.BOT_LINK + f"?start={self.get_id()}"

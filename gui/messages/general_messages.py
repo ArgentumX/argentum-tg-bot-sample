@@ -11,6 +11,10 @@ HELP_MESSAGE = (f'Справка:\n\n'
 
 START_MESSAGE = (f'Привет!')
 
+async def get_ref_link_message(user: User) -> str:
+    referer = await user.get_referer()
+    ref_link = referer.get_referal_link()
+    return f"Ваша реферальная ссылка: {ref_link}"
 
 def get_all_user_info(user: User) -> str:
     text = (f'Пользователь\n\n'

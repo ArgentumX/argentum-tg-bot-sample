@@ -16,10 +16,6 @@ class User(ABC):
         pass
 
     @abstractmethod
-    def get_username(self) -> str:
-        pass
-
-    @abstractmethod
     def get_balance(self) -> float:
         pass
 

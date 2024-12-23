@@ -30,3 +30,7 @@ class Referer(ABC):
     @abstractmethod
     async def get_user_id(self) -> int:
         pass
+
+    @abstractmethod
+    def get_referal_link(self):
+        pass

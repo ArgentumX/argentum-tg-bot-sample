@@ -30,10 +30,10 @@ async def is_username_taken(username: str) -> bool:
     return user is not None
 
 
-async def create_user(user_id: int, username: str, tag: str, referer_id: str = None):
-    user_model = UserModel(id=user_id, username=username, tag=tag)
+async def create_user(user_id: int, tag: str, referer_id: str = None):
+    user_model = UserModel(id=user_id, tag=tag)
     await user_model.create()
-    logger.info(f"user {user_id} created reg request")
+    logger.info(f"Registered user {user_id}")
     user = UserImpl(user_model)
     if referer_id:
         referer = await referers.get_referer_by_id(referer_id)

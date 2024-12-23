@@ -2,6 +2,7 @@ from aiogram import Router, BaseMiddleware
 from aiogram.types import Message, CallbackQuery, BufferedInputFile
 from multipledispatch import dispatch
 
+from config import config
 from errors.api_error import ApiError
 
 
