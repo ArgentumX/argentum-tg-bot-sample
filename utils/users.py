@@ -35,8 +35,11 @@ async def create_user(user_id: int, tag: str, referer_id: str = None):
     await user_model.create()
     logger.info(f"Registered user {user_id}")
     user = UserImpl(user_model)
-    if referer_id:
-        referer = await referers.get_referer_by_id(referer_id)
-        await referer.add_referal(user.get_id())
     await event_manager.call(UserRegistrationEvent(user))
+    try:
+        if referer_id:
+            referer = await referers.get_referer_by_id(referer_id)
+            await referer.add_referal(user.get_id())
+    except ApiError as e:
+        logger.info(f"Failed add referal: {e.message}")
     return user

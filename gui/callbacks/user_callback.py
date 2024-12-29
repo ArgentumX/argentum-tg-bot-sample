@@ -1,6 +1,6 @@
 from aiogram.filters.callback_data import CallbackData
 
-from gui.callbacks.BaseAction import BaseAction
+from gui.callbacks.base_action import BaseAction
 
 
 class UserAction(BaseAction):
