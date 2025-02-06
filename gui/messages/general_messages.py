@@ -20,7 +20,6 @@ def get_all_user_info(user: User) -> str:
     text = (f'Пользователь\n\n'
             f'id: {user.get_id()}\n'
             f'tag: @{user.get_tag()}\n'
-            f'username: {user.get_username()}\n'
             f'balance: {user.get_balance()}\n')
     return text
 
@@ -28,6 +27,5 @@ def get_all_user_info(user: User) -> str:
 def get_user_info(user: User) -> str:
     text = (f'Пользователь\n\n'
             f'id: {user.get_id()}\n'
-            f'username: {user.get_username()}\n'
             f'balance: {user.get_balance()}\n')
     return text
