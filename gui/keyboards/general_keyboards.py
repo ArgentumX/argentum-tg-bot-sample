@@ -2,7 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardBut
 
 from config import config
 from enums.role import Role
-from gui.callbacks.UserCallback import UserCallback, UserAction
+from gui.callbacks.user_callback import UserCallback, UserAction
 
 ADMIN_MENU_KEYBOARD = ReplyKeyboardMarkup(keyboard=[[
 ]], resize_keyboard=True)
