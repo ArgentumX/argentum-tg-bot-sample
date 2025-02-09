@@ -1,35 +1,22 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup, \
+    ReplyKeyboardRemove
 
 from config import config
 from enums.role import Role
 from gui.callbacks.user_callback import UserCallback, UserAction
+from utils.roles import roles
 
-ADMIN_MENU_KEYBOARD = ReplyKeyboardMarkup(keyboard=[[
-]], resize_keyboard=True)
+ADMIN_MENU_KEYBOARD = ReplyKeyboardRemove()
 
-DEFAULT_MENU_KEYBOARD = ReplyKeyboardMarkup(keyboard=[[
-]], resize_keyboard=True)
+DEFAULT_MENU_KEYBOARD = ReplyKeyboardRemove()
 
 CANCEL_MENU_KEYBOARD = ReplyKeyboardMarkup(keyboard=[[
     KeyboardButton(text=config.CANCEL_STATE)
 ]], resize_keyboard=True)
 
-HAS_REFERAL_INKEYBOARD = InlineKeyboardMarkup(inline_keyboard=[[
-    InlineKeyboardButton(text="Да", callback_data=UserCallback(foo=UserAction.HAS_REFERAL).pack()),
-    InlineKeyboardButton(text="Нет", callback_data=UserCallback(foo=UserAction.NO_REFERAL).pack())
-]])
-
-
-def get_pay_inkeyboard(pay_link: str):
-    return InlineKeyboardMarkup(inline_keyboard=[[
-        InlineKeyboardButton(text="Оплатить", url=pay_link)
-    ]])
-
-
-def get_menu_keyboard(roles: list[Role]) -> ReplyKeyboardMarkup:
-    res = None
-    if Role.ADMIN in roles:
+def get_menu_keyboard(user_id: int) -> ReplyKeyboardMarkup:
+    user_roles = roles.get_roles(user_id)
+    res = DEFAULT_MENU_KEYBOARD
+    if Role.ADMIN in user_roles:
         res = ADMIN_MENU_KEYBOARD
-    else:
-        res = DEFAULT_MENU_KEYBOARD
     return res

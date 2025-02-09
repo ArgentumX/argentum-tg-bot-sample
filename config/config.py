@@ -21,7 +21,6 @@ DB_NAME = os.getenv("DB_NAME")
 POSTGRES_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 # Other
-ADMINS = eval(os.getenv("ADMINS"))
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 ENABLE_DEVELOP_TOOLS = os.getenv("ENABLE_DEVELOP_TOOLS").lower() == "true"
 MODERATOR_CONTACT = os.getenv("MODERATOR_CONTACT")
