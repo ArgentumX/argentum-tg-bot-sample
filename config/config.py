@@ -5,10 +5,7 @@ from dotenv import load_dotenv
 USER_HELP = "❓Помощь"
 CANCEL_STATE = "❌Отменить"
 
-USERNAME_MINSIZE = 3
-USERNAME_MAXSIZE = 24
 REFERER_ID_LEN = 20
-
 load_dotenv()
 
 # Throttling settings
