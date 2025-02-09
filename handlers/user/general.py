@@ -20,11 +20,11 @@ async def cmd_start(message: Message, state: FSMContext):
         referer_id = args[1] if len(args) > 1 else None
         user = await users.create_user(message.from_user.id, message.from_user.username, referer_id)
         await bot.send_message(message.from_user.id, general_messages.START_MESSAGE,
-                               reply_markup=general_keyboards.DEFAULT_MENU_KEYBOARD)
+                               reply_markup=general_keyboards.get_menu_keyboard(message.from_user.id))
         await bot.send_message(message.from_user.id, await general_messages.get_ref_link_message(user))
-    else:
-        await bot.send_message(message.from_user.id, general_messages.HELP_MESSAGE,
-                               reply_markup=general_keyboards.DEFAULT_MENU_KEYBOARD)
+        return
+    await bot.send_message(message.from_user.id, general_messages.START_MESSAGE,
+                           reply_markup=general_keyboards.get_menu_keyboard(message.from_user.id))
 
 
 @router.message(Command("help"))

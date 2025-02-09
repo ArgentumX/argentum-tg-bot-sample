@@ -3,7 +3,6 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardBut
 
 from config import config
 from enums.role import Role
-from gui.callbacks.user_callback import UserCallback, UserAction
 from utils.roles import roles
 
 ADMIN_MENU_KEYBOARD = ReplyKeyboardRemove()

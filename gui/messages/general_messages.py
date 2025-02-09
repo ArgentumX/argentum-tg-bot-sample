@@ -1,15 +1,14 @@
 from config import config
 from objects.user.user import User
 
-UNEXPECTED_ACTION_MESSAGE = (f"Воспользуйтесь кнопками из главного меню ⬇️. "
-                             f"Если возникли проблемы при работе с ботом,"
-                             f" обязательно сообщите об этом {config.MODERATOR_CONTACT}")
 
-HELP_MESSAGE = (f'Справка:\n\n'
-                f'\n'
-                f'По всем вопросам - {config.MODERATOR_CONTACT}\n')
+START_MESSAGE = (f'Привет, это ArgentumBot. С моей помощью вы можете сделать что-нибудь интересное\n'
+                 f'\n'
+                 f'/abstract_command - какая-нибудь команда')
 
-START_MESSAGE = (f'Привет!')
+UNEXPECTED_ACTION_MESSAGE = START_MESSAGE
+
+HELP_MESSAGE = START_MESSAGE
 
 async def get_ref_link_message(user: User) -> str:
     referer = await user.get_referer()
