@@ -12,7 +12,9 @@ async def handle_error(error: ErrorEvent, event: CallbackQuery | Message):
     if isinstance(error.exception, ApiError):
         text = error.exception.message
         if error.exception.secret_message:
-            logger.error(error.exception.secret_message)
+            logger.error(f"user {event.from_user.id} occurred internal error: {error.exception.secret_message}")
+        else:
+            logger.info(f"user {event.from_user.id} got exception: {error.exception.message}")
         if bot.id != event.from_user.id:
             await bot.send_message(event.from_user.id, text)
     else:
