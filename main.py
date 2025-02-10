@@ -1,6 +1,7 @@
 import asyncio
 
 from aiogram import Dispatcher
+from aiogram.types import BotCommand
 from loguru import logger
 
 from db import db
@@ -21,11 +22,17 @@ async def on_shutdown():
 async def register_routers(dispatcher: Dispatcher):
     dispatcher.include_router(kernel_router)
 
+async def setup_commands():
+    commands = [
+        BotCommand(command="start", description="все команды"),
+    ]
+    await bot.set_my_commands(commands)
 
-def setup_all(dispatcher: Dispatcher):
+async def setup_all(dispatcher: Dispatcher):
     db.setup(dispatcher)
     dispatcher.startup.register(on_startup)
     dispatcher.shutdown.register(on_shutdown)
+    await setup_commands()
 
 
 from bot import bot, dp
@@ -33,7 +40,7 @@ from bot import bot, dp
 
 async def main():
     await register_routers(dp)
-    setup_all(dp)
+    await setup_all(dp)
     await dp.start_polling(bot)
 
 
