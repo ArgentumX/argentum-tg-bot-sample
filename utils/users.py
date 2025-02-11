@@ -1,9 +1,12 @@
 from loguru import logger
 
+from db.enums.association_type import AssociationType
 from db.models.user_model import UserModel
+from db.models.user_referer_model import UserRefererModel
 from errors.api_error import ApiError
 from events import event_manager
 from events.user.user_registration_event import UserRegistrationEvent
+from objects.referer.referer import Referer
 from objects.user.user import User
 from objects.user.user_impl import UserImpl
 from utils import referers
@@ -43,3 +46,13 @@ async def create_user(user_id: int, tag: str, referer_id: str = None):
     except ApiError as e:
         logger.info(f"Failed add referal: {e.message}")
     return user
+
+async def get_referals(user: User) -> list[User]:
+    result = []
+    referer = await user.get_referer()
+    associations = await UserRefererModel.query.where((UserRefererModel.referer_id == referer.get_id()) & (
+        UserRefererModel.type == str(AssociationType.REFERAL))).gino.all()
+    for association in associations:
+        user = await get_user_by_id(association.user_id)
+        result.append(user)
+    return result

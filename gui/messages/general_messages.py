@@ -1,4 +1,5 @@
 from config import config
+from objects.referer.referer import Referer
 from objects.user.user import User
 
 
@@ -15,16 +16,24 @@ async def get_ref_link_message(user: User) -> str:
     ref_link = referer.get_referal_link()
     return f"Ваша реферальная ссылка: {ref_link}"
 
-def get_all_user_info(user: User) -> str:
-    text = (f'Пользователь\n\n'
-            f'id: {user.get_id()}\n'
-            f'tag: @{user.get_tag()}\n'
-            f'balance: {user.get_balance()}\n')
+def get_all_user_info(user: User, referer: Referer) -> str:
+    text = (f'telegram id: {user.get_id()}\n'
+            f'tag: @{user.get_tag()}\n\n'
+            f'balance: {user.get_balance()}\n\n'
+            f'реферальная ссылка: {referer.get_referal_link()}\n')
     return text
 
 
-def get_user_info(user: User) -> str:
-    text = (f'Пользователь\n\n'
-            f'id: {user.get_id()}\n'
-            f'balance: {user.get_balance()}\n')
+def get_user_info(user: User, referer: Referer) -> str:
+    text = (f'telegram id: {user.get_id()}\n\n'
+            f'balance: {user.get_balance()}\n\n'
+            f'реферальная ссылка: {referer.get_referal_link()}\n\n')
     return text
+
+def get_user_referals(referals: list[User]) -> str:
+    res = "["
+    for user in referals:
+        res += str(user.get_id()) + ", "
+    res = res[:-2] if referals else res
+    res += "]"
+    return f'Рефералы пользователя: {res}'

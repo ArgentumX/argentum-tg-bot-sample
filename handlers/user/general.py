@@ -25,15 +25,3 @@ async def cmd_start(message: Message, state: FSMContext):
         return
     await bot.send_message(message.from_user.id, general_messages.START_MESSAGE,
                            reply_markup=general_keyboards.get_menu_keyboard(message.from_user.id))
-
-
-@router.message(Command("help"))
-async def cmd_help(message: Message):
-    await bot.send_message(message.from_user.id, general_messages.HELP_MESSAGE,
-                           reply_markup=general_keyboards.DEFAULT_MENU_KEYBOARD)
-
-
-@router.message(F.text == config.USER_HELP)
-async def inline_user_help(message: Message):
-    await bot.send_message(message.from_user.id, general_messages.HELP_MESSAGE,
-                           reply_markup=general_keyboards.DEFAULT_MENU_KEYBOARD)

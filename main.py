@@ -25,6 +25,7 @@ async def register_routers(dispatcher: Dispatcher):
 async def setup_commands():
     commands = [
         BotCommand(command="start", description="все команды"),
+        BotCommand(command="profile", description="профиль")
     ]
     await bot.set_my_commands(commands)
 
