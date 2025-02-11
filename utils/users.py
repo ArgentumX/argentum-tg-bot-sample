@@ -56,3 +56,7 @@ async def get_referals(user: User) -> list[User]:
         user = await get_user_by_id(association.user_id)
         result.append(user)
     return result
+
+async def get_all_users() -> list[User]:
+    users = list(map(UserImpl, await UserModel.query.gino.all()))
+    return users

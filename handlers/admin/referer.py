@@ -30,4 +30,4 @@ async def cmd_get_referals(message: Message):
     user_id = validator.get_int(args[0])
     user = await users.get_user_by_id(user_id)
     users_referals = await users.get_referals(user)
-    await bot.send_message(message.from_user.id, general_messages.get_user_referals(users_referals))
+    await bot.send_message(message.from_user.id, general_messages.get_referals_list(users_referals))
