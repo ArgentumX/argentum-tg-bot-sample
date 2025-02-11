@@ -11,8 +11,8 @@ router = Router()
 
 @router.message(Command("user_info", "ui"))
 async def cmd_admin_user_info(message: Message):
-    args = aiogram.get_args(message, 2)
-    user_id = validator.get_int(args[1])
+    args = aiogram.get_args(message, 1)
+    user_id = validator.get_int(args[0])
     user = await users.get_user_by_id(user_id)
     text = general_messages.get_all_user_info(user)
     await bot.send_message(message.from_user.id, text)

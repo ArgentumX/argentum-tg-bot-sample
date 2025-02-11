@@ -11,9 +11,9 @@ router = Router()
 
 @router.message(Command('set_rang'))
 async def set_rang_cmd(message: Message):
-    args = aiogram.get_args(message, 3)
-    user_id = validator.get_int(args[1])
-    rang_name = args[2].upper()
+    args = aiogram.get_args(message, 2)
+    user_id = validator.get_int(args[0])
+    rang_name = args[1].upper()
     if not RefererRang.has_name(rang_name):
         raise ApiError.bad_request("Неправильный ранг")
     rang = RefererRang.get_by_name(rang_name)

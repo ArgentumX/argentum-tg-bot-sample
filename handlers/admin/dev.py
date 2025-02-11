@@ -18,7 +18,7 @@ async def cmd_admin_ban_user(message: Message):
 
 @router.message(Command("delete_user"))
 async def cmd_admin_ban_user(message: Message):
-    user_id = validator.get_int(aiogram.get_args(message, 2)[1])
+    user_id = validator.get_int(aiogram.get_args(message, 1)[0])
     user = await users.get_user_by_id(user_id)
     await user.delete()
     logger.info(f"deleted user {user.get_id()}")

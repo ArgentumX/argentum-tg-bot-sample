@@ -29,7 +29,7 @@ class RefererRang(enum.Enum):
         return self.value.interests
 
     @staticmethod
-    def get_by_name(rang_name) -> enum.Enum:
+    def get_by_name(rang_name):
         for referer_rang in list(RefererRang):
             if referer_rang.name == rang_name:
                 return referer_rang
@@ -43,7 +43,7 @@ class RefererRang(enum.Enum):
         return False
 
     @staticmethod
-    def get_by_id(enum_id) -> enum.Enum:
+    def get_by_id(enum_id):
         for referer_rang in list(RefererRang):
             if referer_rang.enum_id == enum_id:
                 return referer_rang

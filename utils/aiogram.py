@@ -8,9 +8,11 @@ from errors.api_error import ApiError
 
 def get_args(message: Message, required_args: int = None) -> list[str]:
     splitted = message.text.split()
-    if required_args and len(splitted) != required_args:
+    length = len(splitted)
+    if required_args and length != required_args + 1:
         raise ApiError.bad_request("Недостаточно параметров")
-    return splitted
+    broder = 1 if length else 0
+    return splitted[broder:]
 
 
 def include_global_middleware(router: Router, middleware: BaseMiddleware) -> None:
