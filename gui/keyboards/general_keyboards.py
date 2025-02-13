@@ -16,6 +16,6 @@ CANCEL_MENU_KEYBOARD = ReplyKeyboardMarkup(keyboard=[[
 def get_menu_keyboard(user_id: int) -> ReplyKeyboardMarkup | ReplyKeyboardRemove:
     user_roles = roles.get_roles(user_id)
     res = DEFAULT_MENU_KEYBOARD
-    if Role.ADMIN in user_roles:
+    if Role.ADMIN in user_roles or Role.MODERATOR in user_roles:
         res = ADMIN_MENU_KEYBOARD
     return res
