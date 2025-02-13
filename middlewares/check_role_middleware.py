@@ -19,6 +19,6 @@ class CheckRoleMiddleware(BaseMiddleware):
             data: Dict[str, Any]
     ) -> Any:
         if not roles.has_any_role(event.from_user.id, self.user_roles):
-            logger.warning(f"user {event.from_user.id} attempted to execute admin actions")
+            logger.warning(f"user {event.from_user.id} attempted to execute other role actions")
             return
         return await handler(event, data)
