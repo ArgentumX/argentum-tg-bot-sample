@@ -9,6 +9,11 @@ services:
     restart: on-failure
     ports:
       - "5431:5431"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
   bot:
     build: .
     container_name: bot
@@ -17,5 +22,10 @@ services:
       - .env
     depends_on:
       - db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
 volumes:
   pgdata:
