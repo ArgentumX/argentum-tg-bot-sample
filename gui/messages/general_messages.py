@@ -11,6 +11,8 @@ UNEXPECTED_ACTION_MESSAGE = START_MESSAGE
 
 HELP_MESSAGE = START_MESSAGE
 
+CANCEL = "Отменено"
+
 async def get_ref_link_message(user: User) -> str:
     referer = await user.get_referer()
     ref_link = referer.get_referal_link()

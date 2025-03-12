@@ -2,7 +2,7 @@ from aiogram import Router
 
 from config import config
 from enums.role import Role
-from handlers.admin import dev, user_info, blacklist, referer, roles_manage
+from handlers.admin import dev, user_info, blacklist, referer, roles_manage, notifications
 from middlewares.check_role_middleware import CheckRoleMiddleware
 from utils.aiogram import include_global_middleware
 from utils.roles import Roles
@@ -13,6 +13,7 @@ router.include_routers(
     user_info.router,
     blacklist.router,
     referer.router,
+    notifications.router,
     roles_manage.router,
 )
 if config.ENABLE_DEVELOP_TOOLS:

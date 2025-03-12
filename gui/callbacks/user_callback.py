@@ -6,6 +6,7 @@ from gui.callbacks.base_action import BaseAction
 class UserAction(BaseAction):
     HAS_REFERAL = "HAS_REFERAL"
     NO_REFERAL = "NO_REFERAL"
+    CANCEL = "CANCEL"
 
 
 USER_PREFIX = "default"
