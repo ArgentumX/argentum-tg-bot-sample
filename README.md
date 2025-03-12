@@ -12,6 +12,7 @@ Implemented:
 - blacklist, 
 - role system
 - docker setup
+- notifications system
 
 It is worth noting that a special approach is used when working with database models. We wrap them in Classes that implement the interface for interacting with that entities.
 There are no direct work with Gino's models fields
