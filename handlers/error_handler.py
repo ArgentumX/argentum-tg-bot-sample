@@ -4,6 +4,7 @@ from loguru import logger
 
 from bot import bot
 from errors.api_error import ApiError
+from utils import notifier
 
 router = Router()
 
@@ -22,6 +23,7 @@ async def handle_error(error: ErrorEvent, event: CallbackQuery | Message):
         logger.error(f"user {event.from_user.id} occurred error: {error.exception}")
         if bot.id != event.from_user.id:
             await bot.send_message(event.from_user.id, text)
+        await notifier.notify_admins(f"User {event.from_user.id} occurred unhandled exception")
         raise error.exception
 
 
