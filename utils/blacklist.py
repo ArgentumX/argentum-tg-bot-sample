@@ -1,7 +1,7 @@
 from loguru import logger
 
 from errors.api_error import ApiError
-from utils.aop.logger.logger import SyncLoggable
+from utils.aop.logger.decorator import SyncLoggable
 
 
 class Blacklist:

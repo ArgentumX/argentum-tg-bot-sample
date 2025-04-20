@@ -9,7 +9,7 @@ from objects.referer.referer import Referer
 from objects.referer.referer_impl import RefererImpl
 from objects.user.user import User
 from utils.aop.logger.log_level import LogLevel
-from utils.aop.logger.logger import SyncLoggable, AsyncLoggable
+from utils.aop.logger.decorator import SyncLoggable, AsyncLoggable
 
 
 class UserImpl(User):
