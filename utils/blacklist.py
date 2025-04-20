@@ -1,7 +1,7 @@
 from loguru import logger
 
 from errors.api_error import ApiError
-from utils.aop.logger.decorator import SyncLoggable
+from decorator_logging import *
 
 
 class Blacklist:
@@ -15,7 +15,6 @@ class Blacklist:
             raise ApiError.bad_request("Пользователь уже в чёрном списке")
         self.blacklist.add(user_id)
         self.save_blacklist()
-        logger.info(f"user {user_id} was banned")
 
     @SyncLoggable()
     def remove(self, user_id: int) -> None:
@@ -23,7 +22,6 @@ class Blacklist:
             raise ApiError.bad_request("Пользователя нет в чёрном списке")
         self.blacklist.remove(user_id)
         self.save_blacklist()
-        logger.info(f"user {user_id} was unbanned")
 
     def contains(self, user_id: int) -> bool:
         return user_id in self.blacklist

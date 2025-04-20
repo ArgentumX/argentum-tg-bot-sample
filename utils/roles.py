@@ -1,8 +1,7 @@
 from enums.role import Role
-from loguru import logger
+from decorator_logging import *
 
 from errors.api_error import ApiError
-from utils.aop.logger.decorator import SyncLoggable
 
 
 class Roles:

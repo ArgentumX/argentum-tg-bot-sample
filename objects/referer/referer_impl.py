@@ -9,8 +9,8 @@ from errors.api_error import ApiError
 from events import event_manager
 from events.referer.referer_add_referal_event import RefererAddReferalEvent
 from events.referer.referer_set_user_event import RefererSetUserEvent
-from utils.aop.logger.decorator import AsyncLoggable
 from .referer import Referer
+from decorator_logging import *
 
 class RefererImpl(Referer):
     __referer_model: RefererModel
