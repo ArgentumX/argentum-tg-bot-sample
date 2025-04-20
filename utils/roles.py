@@ -20,7 +20,6 @@ class Roles:
         self.roles[user_id] = user_roles
 
         self.save()
-        logger.info(f"user {user_id} got role {role}")
 
     @SyncLoggable()
     def remove_role(self, user_id: int, role: Role) -> None:
@@ -33,7 +32,6 @@ class Roles:
             self.roles.pop(user_id)
 
         self.save()
-        logger.info(f"user {user_id} lost role {role}")
 
     def has_role(self, user_id: int, role: Role) -> bool:
         return role in self.roles.get(user_id, [])
