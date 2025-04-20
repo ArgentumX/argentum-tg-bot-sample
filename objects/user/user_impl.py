@@ -8,6 +8,8 @@ from errors.api_error import ApiError
 from objects.referer.referer import Referer
 from objects.referer.referer_impl import RefererImpl
 from objects.user.user import User
+from utils.aop.logger.log_level import LogLevel
+from utils.aop.logger.logger import SyncLoggable, AsyncLoggable
 
 
 class UserImpl(User):
@@ -26,24 +28,25 @@ class UserImpl(User):
     def get_balance(self) -> float:
         return self.__user_model.balance
 
+    @AsyncLoggable()
     async def add_balance(self, value: float) -> None:
         await self.__user_model.update(balance=self.get_balance() + value).apply()
         await bot.send_message(self.get_id(), f"Вам поступило {value} RUB на личный счёт")
-        logger.info(f"Added {value} to user {self.get_id()} balance")
 
+    @AsyncLoggable()
     async def remove_balance(self, value: float) -> None:
         balance = self.get_balance() - value
         if balance < 0:
             raise ApiError.internal_error(f"Attempt to remove balance of user {self.get_id()} when not enough")
         await self.__user_model.update(balance=balance).apply()
-        logger.info(f"removed {value} from user {self.get_id()} balance")
 
+    @AsyncLoggable()
     async def set_balance(self, value: float) -> None:
         if value < 0:
             raise ApiError.internal_error(f"Attempt to set negative balance of user {self.get_id()}")
         await self.__user_model.update(balance=value).apply()
-        logger.info(f"set balance of user {self.get_id()} to {value} ")
 
+    @AsyncLoggable()
     async def delete(self) -> None:
         await self.__user_model.delete_instance()
 
@@ -60,3 +63,6 @@ class UserImpl(User):
         if not ref_model:
             return None
         return RefererImpl(ref_model)
+
+    def __str__(self):
+        return f"USER:{self.get_id()}"

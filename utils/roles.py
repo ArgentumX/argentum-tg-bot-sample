@@ -2,12 +2,15 @@ from enums.role import Role
 from loguru import logger
 
 from errors.api_error import ApiError
+from utils.aop.logger.logger import SyncLoggable
+
 
 class Roles:
     def __init__(self, file_name: str):
         self.file_name = file_name
         self.roles = self.read()
 
+    @SyncLoggable()
     def add_role(self, user_id: int, role: Role) -> None:
         if roles.has_role(user_id, role):
             raise ApiError.bad_request(f"Пользователь уже имеет роль: {role}")
@@ -19,6 +22,7 @@ class Roles:
         self.save()
         logger.info(f"user {user_id} got role {role}")
 
+    @SyncLoggable()
     def remove_role(self, user_id: int, role: Role) -> None:
         if not roles.has_role(user_id, role):
             raise ApiError.bad_request(f"Пользователь не имеет роли: {role}")

@@ -9,6 +9,7 @@ from errors.api_error import ApiError
 from events import event_manager
 from events.referer.referer_add_referal_event import RefererAddReferalEvent
 from events.referer.referer_set_user_event import RefererSetUserEvent
+from utils.aop.logger.logger import AsyncLoggable
 from .referer import Referer
 
 class RefererImpl(Referer):
@@ -24,10 +25,12 @@ class RefererImpl(Referer):
     def get_rang(self) -> RefererRang:
         return RefererRang.get_by_name(self.__referer_model.rang)
 
+    @AsyncLoggable()
     async def set_rang(self, rang: RefererRang) -> None:
         await self.__referer_model.update(rang=str(rang)).apply()
         logger.info(f"Referer {self.get_id()} rang was set to {rang}")
 
+    @AsyncLoggable()
     async def add_referal(self, user_id: int) -> None:
         association = await UserRefererModel.query.where((UserRefererModel.user_id == user_id) & (
                 UserRefererModel.type == str(AssociationType.REFERAL))).gino.first()
@@ -36,9 +39,9 @@ class RefererImpl(Referer):
         new_association = UserRefererModel(user_id=user_id, referer_id=self.get_id(),
                                            type=str(AssociationType.REFERAL))
         await new_association.create()
-        logger.info(f"Added user {user_id} to referals of referer {new_association.referer_id}")
         await event_manager.call(RefererAddReferalEvent(self))
 
+    @AsyncLoggable()
     async def set_user(self, user_id: int) -> None:
         association = await UserRefererModel.query.where(UserRefererModel.referer_id == self.get_id(),
                                                          type=str(AssociationType.REFERER)).gino.first()
@@ -48,7 +51,6 @@ class RefererImpl(Referer):
         new_association = UserRefererModel(user_id=user_id, referer_id=self.get_id(),
                                            type=str(AssociationType.REFERER))
         await new_association.create()
-        logger.info(f"New referer {self.get_id()} - user {user_id}  association was created")
         await event_manager.call(RefererSetUserEvent(self))
 
     async def get_user_id(self) -> int:
@@ -57,3 +59,6 @@ class RefererImpl(Referer):
 
     def get_referal_link(self):
         return config.BOT_LINK + f"?start={self.get_id()}"
+
+    def __str__(self):
+        return f"REFERER:{self.get_id()}"
